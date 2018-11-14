@@ -1,3 +1,4 @@
 *.html
 db_credentials.py
 __pycache__
+*.csv
