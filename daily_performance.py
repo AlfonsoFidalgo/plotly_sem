@@ -39,7 +39,8 @@ cpa = go.Scatter(
     y=daily['cpa'],
     name='cpa',
     mode='lines',
-    opacity=0.4,
+    opacity=1,
+    # fill='tozeroy',
     line={'width': 1, 'smoothing': 1}
 )
 
@@ -64,7 +65,8 @@ leads = go.Scatter(
     name='leads',
     mode='lines',
     yaxis='y2',
-    opacity=0.4,
+    opacity=1,
+    # fill='tozeroy',
     line={'width': 1, 'smoothing': 1}
 
 )
