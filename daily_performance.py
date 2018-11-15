@@ -40,7 +40,7 @@ cpa = go.Scatter(
     name='cpa',
     mode='lines',
     opacity=0.4,
-    line={'width': 2, 'smoothing': 1, 'shape': 'spline'}
+    line={'width': 1, 'smoothing': 1}
 )
 
 cpa_7 = go.Scatter(
@@ -65,7 +65,7 @@ leads = go.Scatter(
     mode='lines',
     yaxis='y2',
     opacity=0.4,
-    line={'width': 2, 'smoothing': 1, 'shape': 'spline'}
+    line={'width': 1, 'smoothing': 1}
 
 )
 
