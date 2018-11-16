@@ -48,7 +48,8 @@ cpa_7 = go.Scatter(
     x=daily['day'],
     y=daily['cpa_7'],
     name='7 days avg. CPA',
-    line={'width': 3}
+    line={'width': 3},
+    visible='legendonly'
 )
 
 leads_7 = go.Scatter(
@@ -56,7 +57,8 @@ leads_7 = go.Scatter(
     y=daily['leads_7_avg'],
     name='7 days avg. Leads',
     yaxis='y2',
-    line={'width': 3}
+    line={'width': 3},
+    visible='legendonly'
 )
 
 leads = go.Scatter(
@@ -68,7 +70,6 @@ leads = go.Scatter(
     opacity=1,
     # fill='tozeroy',
     line={'width': 1, 'smoothing': 1}
-
 )
 
 data = [cpa, cpa_7, leads, leads_7]
