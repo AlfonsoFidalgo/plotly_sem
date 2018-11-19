@@ -15,8 +15,8 @@ conn = pc.connect(database=db.credentials['db_name'],
                                port=db.credentials['db_port'])
 
 cur = conn.cursor()
-# cur.execute("SELECT * FROM heycar_report.marketing_sea_performance_daily WHERE day > current_date - 15")
-cur.execute("SELECT * FROM heycar_report.marketing_sea_performance_daily WHERE day BETWEEN '2018-10-29' AND '2018-11-11'")
+cur.execute("SELECT * FROM heycar_report.marketing_sea_performance_daily WHERE day > current_date - 15")
+# cur.execute("SELECT * FROM heycar_report.marketing_sea_performance_daily WHERE day BETWEEN '2018-10-29' AND '2018-11-11'")
 conn.commit()
 data = cur.fetchall()
 df = pd.DataFrame(data)
@@ -30,7 +30,7 @@ weekly['avg_price'] = weekly['listing_price'] / weekly['leads']
 
 last_week = weekly[weekly['week_number'] == weekly['week_number'].max()].sort_values('cost', ascending=False)
 week_before = weekly[weekly['week_number'] == weekly['week_number'].min()].sort_values('cost', ascending=False)
-weekly_summary_raw = pd.merge(last_week, week_before, on=['source', 'account_name'])
+weekly_summary_raw = pd.merge(last_week, week_before, how='left', on=['source', 'account_name'])
 weekly_summary_raw['cost_var'] = (weekly_summary_raw['cost_x'] - weekly_summary_raw['cost_y']) / weekly_summary_raw['cost_y']
 weekly_summary_raw['leads_var'] = (weekly_summary_raw['leads_x'] - weekly_summary_raw['leads_y']) / weekly_summary_raw['leads_y']
 weekly_summary_raw['price_var'] = (weekly_summary_raw['avg_price_x'] - weekly_summary_raw['avg_price_y']) / weekly_summary_raw['avg_price_y']
