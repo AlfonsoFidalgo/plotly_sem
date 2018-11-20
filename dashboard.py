@@ -4,12 +4,20 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import pandas as pd
+import dash_auth
 import datetime
 
 import psycopg2 as pc
 import db_credentials as db
 
+USERNAME_PASSWORD_PAIRS = [
+    ['afidalgo', 'r93fuzCz:+FR[PG{']
+]
+
 app = dash.Dash()
+auth = dash_auth.BasicAuth(app,USERNAME_PASSWORD_PAIRS)
+
+
 
 conn = pc.connect(database=db.credentials['db_name'],
                                user=db.credentials['db_user'],
@@ -28,7 +36,7 @@ df.columns = ['day', 'source', 'account_id', 'account_name',
                'adgroup_name', 'impressions', 'clicks',
                 'cost', 'leads', 'listing_price']
 
-df.to_csv('dashboard_161118.csv')
+df.to_csv('raw_data.csv')
 # df = pd.read_csv('dashboard_161118.csv')
 df['week_num'] = df['day'].apply(lambda x: x.isocalendar()[1])
 df['month'] = df['day'].apply(lambda x: x.month)
