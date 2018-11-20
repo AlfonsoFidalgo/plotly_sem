@@ -73,7 +73,8 @@ app.layout = html.Div([
                          {'label': 'Clicks', 'value': 'clicks'},
                          {'label': 'CPA', 'value': 'cpa'},
                          {'label': 'CPC', 'value': 'cpc'},
-                         {'label': 'CTR', 'value': 'ctr'}],
+                         {'label': 'CTR', 'value': 'ctr'},
+                         {'label': 'Avg. lead price', 'value': 'avg_price'}],
                 value='cpa',
                 multi=False
             )
@@ -89,7 +90,8 @@ app.layout = html.Div([
                          {'label': 'CPA', 'value': 'cpa'},
                          {'label': 'CPC', 'value': 'cpc'},
                          {'label': 'CTR', 'value': 'ctr'},
-                         {'label': 'CVR', 'value': 'cvr'}],
+                         {'label': 'CVR', 'value': 'cvr'},
+                         {'label': 'Avg. lead price', 'value': 'avg_price'}],
                 value='leads',
                 multi=False
             )
@@ -125,6 +127,7 @@ def update_graph(source, account, kpi_l, kpi_r, time_r):
     df_plot['ctr'] = df_plot['clicks'] / df_plot['impressions']
     df_plot['cpc'] = df_plot['cost'] / df_plot['clicks']
     df_plot['cvr'] = df_plot['leads'] / df_plot['clicks']
+    df_plot['avg_price'] = df_plot['listing_price'] / df_plot['leads']
 
 
     y1 = go.Scatter(
