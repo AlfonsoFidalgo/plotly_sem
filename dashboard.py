@@ -4,18 +4,18 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import pandas as pd
-import dash_auth
+# import dash_auth
 import datetime
 
 import psycopg2 as pc
 import db_credentials as db
 
-USERNAME_PASSWORD_PAIRS = [
-    ['afidalgo', 'r93fuzCz:+FR[PG{']
-]
+# USERNAME_PASSWORD_PAIRS = [
+#     ['afidalgo', 'r93fuzCz:+FR[PG{']
+# ]
 
 app = dash.Dash()
-auth = dash_auth.BasicAuth(app,USERNAME_PASSWORD_PAIRS)
+# auth = dash_auth.BasicAuth(app,USERNAME_PASSWORD_PAIRS)
 
 
 
@@ -26,7 +26,7 @@ conn = pc.connect(database=db.credentials['db_name'],
                                port=db.credentials['db_port'])
 
 cur = conn.cursor()
-cur.execute("SELECT * FROM heycar_report.marketing_sea_performance_daily WHERE day > current_date - 80")
+cur.execute("SELECT * FROM heycar_report.marketing_sea_performance_daily WHERE day >= '2018-10-01'")
 conn.commit()
 data = cur.fetchall()
 df = pd.DataFrame(data)
@@ -51,7 +51,7 @@ app.layout = html.Div([
             dcc.Dropdown(
                 id='source_selector',
                 options=[{'label': i, 'value': i} for i in df['source'].unique()],
-                value=['google_ads', 'bing_ads'],
+                value=['google_ads', 'bing_ads', 'facebook'],
                 multi=True
             ),
             ]),

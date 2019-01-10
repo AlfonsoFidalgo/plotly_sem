@@ -17,7 +17,8 @@ cur = conn.cursor()
 cur.execute("""SELECT
                 day, sum(cost)
                 FROM heycar_report.marketing_sea_performance_daily
-                WHERE day BETWEEN '2018-11-01' AND '2018-11-30'
+                WHERE day BETWEEN '2019-01-01' AND '2019-01-31'
+                AND mkt_source IN ('google_ads', 'bing_ads')
                 GROUP BY 1 ORDER BY 1 ASC;""")
 conn.commit()
 data = cur.fetchall()
@@ -29,8 +30,8 @@ df['day'] = df['date'].apply(lambda x: x.day)
 # df.to_csv('daily_spend.csv')
 
 ##Dataframe for daily targets
-days_in_month = 30
-monthly_budget = 800000
+days_in_month = 31
+monthly_budget = 500000
 daily_target = monthly_budget / days_in_month
 daily_targets = np.arange(daily_target, monthly_budget + 1, daily_target)
 daily_targets_df = pd.DataFrame(data=daily_targets, columns=['daily_target'])
@@ -44,14 +45,16 @@ daily_target = go.Scatter(
     x=days_df['days'],
     y=days_df['spend_target'],
     mode='lines',
-    name='Spend target'
+    name='Spend target',
+    line=dict(color= '#00cea5')
 )
 
 daily_spend = go.Scatter(
     x = df['day'],
     y = df['cum_sum'],
     mode = 'lines',
-    name = 'Cumulative Spend'
+    name = 'Cumulative Spend',
+    line=dict(color= '#002836')
 )
 
 data = [daily_spend, daily_target]

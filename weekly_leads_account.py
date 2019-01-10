@@ -15,7 +15,7 @@ conn = pc.connect(database=db.credentials['db_name'],
                                port=db.credentials['db_port'])
 
 cur = conn.cursor()
-cur.execute("SELECT * FROM heycar_report.marketing_sea_performance_daily WHERE day > current_date - 50")
+cur.execute("SELECT * FROM heycar_report.marketing_sea_performance_daily WHERE day > current_date - 50 AND mkt_source IN ('google_ads', 'bing_ads')")
 # cur.execute("SELECT * FROM heycar_report.marketing_sea_performance_daily WHERE day BETWEEN '2018-10-01' AND '2018-11-11'")
 conn.commit()
 data = cur.fetchall()
